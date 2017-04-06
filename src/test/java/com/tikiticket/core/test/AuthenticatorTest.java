@@ -11,6 +11,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.javatuples.Pair;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -18,8 +19,10 @@ import static com.tikiticket.core.Constants.AUTH_TIME;
 import static org.junit.Assert.*;
 
 /**
+ * Тест аутентификации для различных ситуаций
  * Created by veinhorn on 31.3.17.
  */
+@Ignore
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class AuthenticatorTest {
     private Connector connector;
