@@ -17,7 +17,7 @@ import static com.tikiticket.core.Constants.*;
 
 /**
  * Created by veinhorn on 28.3.17.
- * Инкапсулирует логику аутентификации
+ * Реализация автоматической аутентификации пользователя
  */
 public class Authenticator {
     private static final String LOGIN_PAGE_URL = "https://poezd.rw.by/wps/portal/home/login_main";
@@ -41,15 +41,12 @@ public class Authenticator {
     }
 
     /**
-     * Производит попутку аутентификации пользователя
+     * Осуществляет аутентификацию пользователя
      * @return true если аутентификация прошла успешно, иначе false
      * @throws TikiTicketException в случае ошибки в процессе аутентификации
      */
     public Pair<Boolean, Context> authenticate() throws TikiTicketException {
-        // Pair<Boolean, Boolean> isAuthed = isAuthenticatedInner();
         if (!isAuthenticated()) {
-        // if (!isAuthed.getValue0()) {
-            // Context loginCtx = isAuthed.getValue1() ? singleLoginPage() : doubleLoginPage();
             Context loginCtx = doubleLoginPage();
 
             String authUrl = new LoginPageParser().parse(loginCtx);
@@ -80,7 +77,7 @@ public class Authenticator {
     }
 
     /** Проверяет аутентифицирован ли пользователь на основе
-     *  времени последней успешной аутентификации в коннекторе */
+     *  времени последней успешной аутентификации, хранимой в коннекторе */
     public boolean isAuthenticated() {
         Long authTime = (Long) connector.getStorage().get(AUTH_TIME);
         return authTime != null && !isTimeoutExpired(authTime);

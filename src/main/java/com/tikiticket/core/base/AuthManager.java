@@ -7,10 +7,10 @@ import com.tikiticket.core.Connector;
  * Предоставляет реализацию прокси-мэнеджера для автоматической аутентификации
  * в случае простоя (истечения таймаута)
  */
-public abstract class AuthManager {
-    protected Connector connector;
+abstract class AuthManager {
+    protected AuthConnector connector;
 
-    public AuthManager(Connector connector) {
+    AuthManager(Connector connector) {
         this.connector = new AuthConnector(connector);
     }
 }

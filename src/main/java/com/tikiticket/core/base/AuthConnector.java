@@ -51,6 +51,11 @@ public class AuthConnector implements Connector {
         return connector.getCredentials();
     }
 
+    /** Проверяет аутентифицирован ли пользователь, делегируя запрос аутентификатору */
+    public boolean isAuthenticated() {
+        return authenticator.isAuthenticated();
+    }
+
     private void checkAuthentication(Pair<Boolean, Context> authData) throws TikiTicketException {
         if (!authData.getValue0())
             throw new TikiTicketException("Cannot authenticate user with login/pass: " + formatOutput(), new Exception());
