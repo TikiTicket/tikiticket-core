@@ -14,5 +14,5 @@ hs_err_pid*
 .idea/
 target/
 *.iml
-html/
+src/test/resources/html/
 src/test/java/com/tikiticket/core/test/connector/DefaultCredentials.java
