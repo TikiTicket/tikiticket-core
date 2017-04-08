@@ -2,7 +2,10 @@ package com.tikiticket.core.util;
 
 import com.tikiticket.core.Context;
 import com.tikiticket.core.Credentials;
+import com.tikiticket.core.api.Ticket;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import static com.tikiticket.core.Constants.BASE_URL;
@@ -42,5 +45,12 @@ public class Util {
                 return password;
             }
         };
+    }
+
+    /** Получение списка с номерами заказов из списка билетов */
+    public static List<Long> getOrderNumbers(List<Ticket> tickets) {
+        List<Long> orderNumbers = new ArrayList<>();
+        for (Ticket ticket : tickets) orderNumbers.add(ticket.getOrderNumber());
+        return orderNumbers;
     }
 }
