@@ -6,7 +6,7 @@
 
     <groupId>com.tikiticket.core</groupId>
     <artifactId>tikiticket-core</artifactId>
-    <version>0.04</version>
+    <version>0.05</version>
 
     <properties>
         <maven.compiler.plugin.version>3.6.1</maven.compiler.plugin.version>
@@ -41,6 +41,13 @@
             <version>4.5.3</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -53,6 +60,12 @@
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
             </plugin>
         </plugins>
     </build>
