@@ -64,7 +64,9 @@ public class UpcomingTicketsParser implements PageParser<Pair<List<Ticket>, Map<
         } else {
             /** Нужно проверить есть ли сообщение "Нет информации о заказах" */
             Elements errDiv = document.getElementsByClass("errDiv");
-            if (!errDiv.isEmpty() && NO_TICKETS_MESSAGE.equals(errDiv.text())) return new Pair<List<Ticket>, Map<String, String>>(new ArrayList<Ticket>(), null);
+            if (!errDiv.isEmpty() && NO_TICKETS_MESSAGE.equals(errDiv.text())) {
+                return new Pair<List<Ticket>, Map<String, String>>(new ArrayList<Ticket>(), null);
+            }
             /** Иначе бросает исключение что мол не можем распарсить билеты */
             throw new TikiTicketException("Cannot parse upcoming tickets (there isn't table with class information)", new Exception());
         }

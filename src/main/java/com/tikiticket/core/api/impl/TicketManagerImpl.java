@@ -65,6 +65,11 @@ public class TicketManagerImpl extends BaseManager implements TicketManager {
         if (connector.getStatus() != Status.UPCOMING_TICKETS) getUpcomingTickets();
 
         Map<String, String> formParams = (Map<String, String>) connector.getStorage().get(FORM_PARAMETERS);
+
+        // TODO: Проследить почему данные формы null в этом случае
+        /** Случается когда "Нет информации о заказах" */
+        if (formParams == null) throw new TikiTicketException("Cannot get details data for order with id #" + orderNumber, new Exception());
+
         String ticketDetailsUrl = formParams.get("ordersFormActionUrl");
         formParams.remove("ordersFormActionUrl");
 
