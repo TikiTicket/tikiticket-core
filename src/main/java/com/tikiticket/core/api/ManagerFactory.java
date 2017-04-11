@@ -3,6 +3,7 @@ package com.tikiticket.core.api;
 import com.tikiticket.core.Connector;
 import com.tikiticket.core.api.impl.AuthManagerImpl;
 import com.tikiticket.core.api.impl.ProfileManagerImpl;
+import com.tikiticket.core.api.impl.TicketManagerImpl;
 
 /**
  * Created by veinhorn on 1.4.17.
@@ -21,5 +22,9 @@ public class ManagerFactory {
 
     public ProfileManager newProfileManager() {
         return new ProfileManagerImpl(connector);
+    }
+
+    public TicketManager newTicketManager() {
+        return new TicketManagerImpl(connector);
     }
 }
