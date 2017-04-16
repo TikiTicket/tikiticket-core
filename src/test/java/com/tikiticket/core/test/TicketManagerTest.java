@@ -17,7 +17,11 @@ public class TicketManagerTest extends BaseTest {
     public void testTicketManager() throws TikiTicketException {
         TicketManager ticketManager = new TicketManagerImpl(connector);
         List<Ticket> tickets = ticketManager.getUpcomingTickets();
-        TicketDetails ticketDetails = ticketManager.getTicketDetails(72475891090973L, true);
+
+        TicketDetails details1 = ticketManager.getTicketDetails(72675891804531L, true);
+        TicketDetails details2 = ticketManager.getTicketDetails(72675891510833L, true);
+        TicketDetails details3 = ticketManager.getTicketDetails(72675891873175L, true);
+
         String ok = "ok";
     }
 }
