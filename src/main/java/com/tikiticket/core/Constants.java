@@ -28,4 +28,12 @@ public class Constants {
     public static final String FORM_PARAMETERS = "form_parameters";
 
     /** --- */
+
+    /** Параметры, которые хранятся в form_parameters в процессе оплаты */
+    public static final String ORDER_NUMBERS = "order_numbers";
+    /** --- */
+
+    /** Параметры формы */
+    public static final String FORM_LIST_PARAMETER = "viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2:_idcl";
+    /** --- */
 }

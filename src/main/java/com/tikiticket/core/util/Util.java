@@ -53,4 +53,10 @@ public class Util {
         for (Ticket ticket : tickets) orderNumbers.add(ticket.getOrderNumber());
         return orderNumbers;
     }
+
+    /** Используется для вывода параметров в удобочитаемом формате */
+    public static void printMap(Map<String, String> map) {
+        for (String key : map.keySet()) System.out.println(key + ": " + map.get(key));
+        System.out.println();
+    }
 }

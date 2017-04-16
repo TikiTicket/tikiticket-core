@@ -10,12 +10,13 @@ import com.tikiticket.core.api.impl.parser.TicketDetailsParser;
 import com.tikiticket.core.api.impl.parser.UpcomingTicketsParser;
 import com.tikiticket.core.base.BaseManager;
 import com.tikiticket.core.exception.TikiTicketException;
+import com.tikiticket.core.util.Util;
 import org.javatuples.Pair;
 
 import java.util.List;
 import java.util.Map;
 
-import static com.tikiticket.core.Constants.FORM_PARAMETERS;
+import static com.tikiticket.core.Constants.*;
 
 /**
  * Created by veinhorn on 6.4.17.
@@ -77,6 +78,12 @@ public class TicketManagerImpl extends BaseManager implements TicketManager {
         if ("-1".equals(rowNum)) throw new TikiTicketException("Cannot get details data for order with id #" + orderNumber, new Exception());
         formParams.put("rownum", rowNum);
 
+        /** Тут нужно подправить параметр списка */
+        String updatedListParam = formParams.get(FORM_LIST_PARAMETER).replaceFirst("cabOrderList1:[\\d]", "cabOrderList1:" + rowNum);
+        formParams.put(FORM_LIST_PARAMETER, updatedListParam);
+
+        Util.printMap(formParams);
+
         Context context = connector.toStatus(Status.UPCOMING_TICKET_DETAILS).doPost(ticketDetailsUrl, formParams);
         return new TicketDetailsParser().parse(context);
     }
@@ -84,11 +91,12 @@ public class TicketManagerImpl extends BaseManager implements TicketManager {
     /** Получение номера строки на основе сохраненных данных формы (данные сохраняются на этапе
      *  парсинга странички) */
     private String countRowNumber(Map<String, String> formParameters, Long orderNumber) {
-        String[] orderNumbers = formParameters.get("order_numbers").replace("[", "").replace("]", "").split(",");
+        String[] orderNumbers = formParameters.get(ORDER_NUMBERS).replaceAll("[\\[ \\]]", "").split(",");
         String rowNum = "-1"; // начальное значение, "неправильное"
         for (int i = 0; i < orderNumbers.length; i++)
             if (orderNumber.toString().equals(orderNumbers[i]))
                 rowNum = Integer.valueOf(i).toString();
+        formParameters.remove(ORDER_NUMBERS);
         return rowNum;
     }
 }

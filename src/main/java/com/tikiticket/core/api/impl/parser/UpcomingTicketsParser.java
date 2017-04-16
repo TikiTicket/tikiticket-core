@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.tikiticket.core.Constants.FORM_LIST_PARAMETER;
+import static com.tikiticket.core.Constants.ORDER_NUMBERS;
+
 /**
  * Created by veinhorn on 8.4.17.
  * Парсинг предстоящих поездок и сохранение определенных данных формы заказов
@@ -45,11 +48,13 @@ public class UpcomingTicketsParser implements PageParser<Pair<List<Ticket>, Map<
              *  получения детальной информации по билету) */
             Map<String, String> params = new HashMap<>();
 
+            // TODO: Придумать динамический способ подгрузки этих полей
             params.put("viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2:cabOrderList1:pagerWeb1__pagerWeb", "0");
             params.put("viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2:selForNewOrderId1", "");
             params.put("viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2:selForNewOrderDate1", "");
             params.put("viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2", "viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2");
-            params.put("viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2:_idcl", "viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2:cabOrderList1:0:_id71");
+            /** Отвечает за номер билета в списке */
+            params.put(FORM_LIST_PARAMETER, "viewns_7_48QFVAUK6PT510AGU3KRAG1004_:form2:cabOrderList1:0:_id71");
 
             String ids = document.getElementById("com.sun.faces.VIEW").val();
             String relativeUrl = Util.fromRelativeUrl(document.getElementsByTag("form").get(1).attr("action"));
@@ -58,7 +63,7 @@ public class UpcomingTicketsParser implements PageParser<Pair<List<Ticket>, Map<
             params.put("ordersFormActionUrl", relativeUrl);
 
             /** Записываем список заказов в карту, для последующего использования */
-            params.put("order_numbers", Util.getOrderNumbers(tickets).toString());
+            params.put(ORDER_NUMBERS, Util.getOrderNumbers(tickets).toString());
 
             return new Pair<>(tickets, params);
         } else {
