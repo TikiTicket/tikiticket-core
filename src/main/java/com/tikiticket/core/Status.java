@@ -13,7 +13,9 @@ public enum Status {
     /** Страница с детальной информацией по билету */
     UPCOMING_TICKET_DETAILS(2),
     /** Страница с совершенными поездками */
-    COMPLETED_TICKETS(3);
+    COMPLETED_TICKETS(3),
+    /** Страница со списком совершенных поездок (после нажатия на кнопку показать) */
+    COMPLETED_TICKETS_LIST(4);
 
     // TODO: При добавлении новых статусов необходимо обновить метод #from
 
@@ -33,7 +35,20 @@ public enum Status {
             case 1:  return UPCOMING_TICKETS;
             case 2:  return UPCOMING_TICKET_DETAILS;
             case 3:  return COMPLETED_TICKETS;
+            case 4:  return COMPLETED_TICKETS_LIST;
             default: return UNDEFINED;
+        }
+    }
+
+    @Override
+    public String toString() {
+        switch (value) {
+            case -1: return "UNDEFINED";
+            case 1:  return "Upcoming tickets";
+            case 2:  return "Upcoming ticket details";
+            case 3:  return "Completed tickets";
+            case 4:  return "Completed tickets list";
+            default: return "Error to determine status";
         }
     }
 }

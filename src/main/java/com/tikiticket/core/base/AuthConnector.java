@@ -13,6 +13,7 @@ import java.util.Map;
  * Реализация Connector'а, которая проксирует запросы на сервер и в случае если
  * timeout истек, проводит повторную аутентификацию пользователя
  */
+// TODO: Реализовать возможность выхода для аутентифицированного пользователя
 public class AuthConnector implements Connector {
     private Connector connector;
     private Authenticator authenticator;

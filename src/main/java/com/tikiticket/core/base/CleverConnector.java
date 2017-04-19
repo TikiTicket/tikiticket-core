@@ -13,14 +13,17 @@ import static com.tikiticket.core.Constants.STATUS;
  * Позволяет:
  *   1. Автоматически сохранять последнюю загруженную страничку
  *   2. Упрощает обновение статусов
+ *   3. Позволяет отслеживать события определенного рода, происходящие внутри коннектора
  */
 // TODO: Написать юнит тесты к этому классу
 // TODO: Переименовать, т.к не совсем отражает суть
 public class CleverConnector implements Connector, Authentication {
     private AuthConnector connector;
+    private EventListener listener;
 
-    public CleverConnector(AuthConnector connector) {
+    public CleverConnector(AuthConnector connector, EventListener listener) {
         this.connector = connector;
+        this.listener = listener;
     }
 
     /** Обновляем в хранилище последнюю загруженную страничку */
@@ -61,6 +64,7 @@ public class CleverConnector implements Connector, Authentication {
     /** Обновление статуса. Вызывается перед doget/dopost */
     public CleverConnector toStatus(Status status) {
         updateStorage(Constants.STATUS, status.value());
+        if (listener != null) listener.onStatusChanged(status);
         return this;
     }
 

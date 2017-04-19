@@ -27,6 +27,8 @@ public class Constants {
      *  специфичных для формы на сайте */
     public static final String FORM_PARAMETERS = "form_parameters";
 
+
+
     /** --- */
 
     /** Параметры, которые хранятся в form_parameters в процессе оплаты */

@@ -13,6 +13,10 @@ import java.util.List;
 public interface TicketManager {
     /** Получение списка билетов по предстоящим поездкам */
     List<Ticket> getUpcomingTickets() throws TikiTicketException;
+
+    /** Возвращает список билетов по совершенным поездкам */
+    List<Ticket> getCompletedTickets() throws TikiTicketException;
+
     /** Более быстрый метод получения детальной информации по билету,
      *  т.к заранее указывается категория для поиска */
     TicketDetails getTicketDetails(Long orderNumber, boolean isActive) throws TikiTicketException;

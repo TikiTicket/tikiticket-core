@@ -9,6 +9,7 @@ import com.tikiticket.core.api.TicketManager;
 import com.tikiticket.core.api.impl.parser.TicketDetailsParser;
 import com.tikiticket.core.api.impl.parser.UpcomingTicketsParser;
 import com.tikiticket.core.base.BaseManager;
+import com.tikiticket.core.base.EventListener;
 import com.tikiticket.core.exception.TikiTicketException;
 import com.tikiticket.core.util.Util;
 import org.javatuples.Pair;
@@ -25,8 +26,8 @@ import static com.tikiticket.core.Constants.*;
 public class TicketManagerImpl extends BaseManager implements TicketManager {
     private static final String UPCOMING_TICKETS_PAGE_URL = "https://poezd.rw.by/wps/myportal/home/rp/private";
 
-    public TicketManagerImpl(Connector connector) {
-        super(connector);
+    public TicketManagerImpl(Connector connector, EventListener listener) {
+        super(connector, listener);
     }
 
     // TODO: Реализовать работу метода при переходе из статуса COMPLETED_TRIPS
@@ -46,6 +47,26 @@ public class TicketManagerImpl extends BaseManager implements TicketManager {
             connector.updateStorage(FORM_PARAMETERS, data.getValue1());
 
             return data.getValue0();
+        }
+    }
+
+    // TODO: Сделать логи с переходами по статусам для коннектора, чтобы можно было отслеживать как работает
+    // TODO: вся цепочка, должен где-то определяться некий глобальный листенер
+    @Override
+    public List<Ticket> getCompletedTickets() throws TikiTicketException {
+        /** Если мы находимся в статусе COMPLETED_TICKETS или COMPLETED_TICKETS_LIST, то кидаем исключение,
+         *  в последующем здесь должен быть реализован более интересный и оптимизированный алгоритм работы */
+        /** TODO: Пока что здесь можно сделать реализацию - разлогиниться и повторно выполнить getCompletedTickets */
+        if (connector.getStatus() == Status.COMPLETED_TICKETS && connector.getStatus() == Status.COMPLETED_TICKETS_LIST) {
+            throw new TikiTicketException("", new Exception());
+        } else { // иначе из любого другого статуса мы де
+            Context context = connector.toStatus(Status.UPCOMING_TICKETS).doGet(UPCOMING_TICKETS_PAGE_URL);
+
+            // get tabs_l2 class
+            
+
+            String ok = "ok";
+            return null;
         }
     }
 
